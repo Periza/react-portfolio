@@ -1,6 +1,5 @@
 import React from "react";
-import Section from "./Section";
-import cv from "../Marko_Perica_CV(English).pdf";
+import Download from "./Download";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,10 +29,7 @@ function Header() {
               repellendus, a quod impedit architecto nostrum rerum. Nulla sequi
               suscipit qui iure consequuntur architecto!
             </p>
-            <a href={cv} className="main-btn" download>
-              <span className="btn-text">Download CV</span>
-              <FontAwesomeIcon icon={faDownload} />
-            </a>
+            <Download></Download>
           </div>
         </div>
       </header>
