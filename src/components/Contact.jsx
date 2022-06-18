@@ -9,6 +9,12 @@ import {
   faGlobeEurope,
 } from "@fortawesome/free-solid-svg-icons";
 
+import {
+  faFacebook,
+  faLinkedin,
+  faGithub,
+} from "@fortawesome/free-brands-svg-icons";
+
 function Contact() {
   return (
     <React.Fragment>
@@ -74,17 +80,20 @@ function Contact() {
               </div>
               <div className="contact-icons">
                 <div className="contact-icon">
-                  <a href="www.facebook.com" target="_blank">
-                    <i className="fab fa-facebook-f"></i>
+                  <a
+                    href="https://www.facebook.com/marko.perica1"
+                    target="_blank"
+                  >
+                    <FontAwesomeIcon icon={faFacebook}></FontAwesomeIcon>
                   </a>
-                  <a href="#" target="_blank">
-                    <i className="fab fa-twitter"></i>
+                  <a href="https://github.com/Periza" target="_blank">
+                    <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
                   </a>
-                  <a href="#" target="_blank">
-                    <i className="fab fa-github"></i>
-                  </a>
-                  <a href="#" target="_blank">
-                    <i className="fab fa-youtube"></i>
+                  <a
+                    href="https://www.linkedin.com/in/marko-perica-054700a8/"
+                    target="_blank"
+                  >
+                    <FontAwesomeIcon icon={faLinkedin}></FontAwesomeIcon>
                   </a>
                 </div>
               </div>
