@@ -47,7 +47,11 @@ function Contact() {
                     <span>Email</span>
                   </div>
                   <p>
-                    <span>: marko.perica@markoperica.com.hr</span>
+                    <span>
+                      <a href="mailto:marko.perica@markoperica.com.hr">
+                        : marko.perica@markoperica.com.hr
+                      </a>
+                    </span>
                   </p>
                 </div>
                 <div className="contact-item">
@@ -65,7 +69,9 @@ function Contact() {
                     <span>Mobile Number</span>
                   </div>
                   <p>
-                    <span>: +385977580825</span>
+                    <span>
+                      <a href="tel:+385977580825">: +385977580825 </a>
+                    </span>
                   </p>
                 </div>
                 <div className="contact-item">
