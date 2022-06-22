@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import Blog from "./Blog";
 
@@ -10,7 +9,7 @@ function Blogs() {
         <Blog></Blog>
         <Blog></Blog>
         <Blog></Blog>
-        <Blog></Blog>   
+        <Blog></Blog>
       </div>
     </React.Fragment>
   );

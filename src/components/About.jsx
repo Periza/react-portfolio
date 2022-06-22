@@ -1,10 +1,11 @@
-import React from 'react';
-import Download from './Download';
+import React from "react";
 
-function About () {
-    return <React.Fragment>
-        <h1>About</h1>
+function About() {
+  return (
+    <React.Fragment>
+      <h1>About</h1>
     </React.Fragment>
+  );
 }
 
 export default About;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { AjaxClient } from "ajax-client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,8 +15,63 @@ import {
   faLinkedin,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
+import { useEffect } from "react";
+
+const url = "http://portfolio.markoperica.com/sendMail.php";
 
 function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  let [emailWarning, setEmailWarning] = useState(false);
+  let [nameWarning, setNameWarning] = useState(false);
+  let [messageWarning, setMessageWarning] = useState(false);
+
+  function checkEmail() {
+    var regex = /\S+@\S+\.\S+/;
+    return regex.test(email);
+  }
+
+  // check all fields
+  function checkFields() {
+    if (!name) {
+      setNameWarning(true);
+      return;
+    }
+    setNameWarning(false);
+    if (!checkEmail()) {
+      setEmailWarning(true);
+      return;
+    }
+    setEmailWarning(false);
+    if (!message) {
+      setMessageWarning(true);
+      return;
+    }
+    setMessageWarning(false);
+    return true;
+  }
+
+  function sendMail(e) {
+    e.preventDefault();
+    const client = new AjaxClient();
+    const data = { name: name, email: email, message: message };
+    // if all fields are OK send mail
+    if (checkFields()) {
+      const xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+        }
+      };
+
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send(`name=${name}&message=${message}&email=${email}`);
+    }
+  }
+
   return (
     <React.Fragment>
       <section className="container contact" id="contact">
@@ -89,15 +145,21 @@ function Contact() {
                   <a
                     href="https://www.facebook.com/marko.perica1"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <FontAwesomeIcon icon={faFacebook}></FontAwesomeIcon>
                   </a>
-                  <a href="https://github.com/Periza" target="_blank">
+                  <a
+                    href="https://github.com/Periza"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
                   </a>
                   <a
                     href="https://www.linkedin.com/in/marko-perica-054700a8/"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <FontAwesomeIcon icon={faLinkedin}></FontAwesomeIcon>
                   </a>
@@ -107,8 +169,24 @@ function Contact() {
             <div className="right-contact">
               <form action="">
                 <div className="input-control i-c-2">
-                  <input type="text" required placeholder="YOUR NAME" />
-                  <input type="email" required placeholder="YOUR EMAIL" />
+                  <input
+                    type="text"
+                    required
+                    placeholder="YOUR NAME"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                  <input
+                    type="email"
+                    required
+                    placeholder="YOUR EMAIL"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
                 </div>
                 <div className="input-control">
                   <textarea
@@ -117,12 +195,31 @@ function Contact() {
                     cols="15"
                     rows="8"
                     placeholder="Message here..."
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                    }}
                   ></textarea>
                 </div>
-                <div className="submit-btn">
+                <div className="submit-btn" onClick={(e) => sendMail(e)}>
                   <a href="" className="main-btn">
                     <span className="btn-text">Submit</span>
                   </a>
+                  {nameWarning && (
+                    <span style={{ color: "#000000", marginLeft: "10px" }}>
+                      Please enter a name!
+                    </span>
+                  )}
+                  {emailWarning && (
+                    <span style={{ color: "#000000", marginLeft: "10px" }}>
+                      Entered e-mail is not valid!
+                    </span>
+                  )}
+                  {messageWarning && (
+                    <span style={{ color: "#000000", marginLeft: "10px" }}>
+                      Please enter a message!
+                    </span>
+                  )}
                 </div>
               </form>
             </div>

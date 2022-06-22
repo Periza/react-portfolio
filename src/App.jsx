@@ -10,10 +10,8 @@ import { Link, NavLink } from "react-router-dom";
 import About from "./components/About";
 import Contact from "./components/Contact";
 
-
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 import "./styles/styles.scss";
@@ -21,18 +19,17 @@ function App() {
   return (
     <React.Fragment>
       <div className="App">
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Header />} />
-          <Route path="/portfolio" element={<Portfolio />}></Route>
-          <Route path="/blogs" element={<Blogs />}></Route>
-          <Route path="/about" element={<About/>}></Route>
-          <Route path="/contact" element={<Contact/>} ></Route>
-        </Routes>
-      <Controls></Controls>
-      </Router>
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<Header />} />
+            <Route path="/portfolio" element={<Portfolio />}></Route>
+            <Route path="/blogs" element={<Blogs />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/contact" element={<Contact />}></Route>
+          </Routes>
+          <Controls></Controls>
+        </Router>
       </div>
-      
     </React.Fragment>
   );
 }
