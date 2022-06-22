@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { AjaxClient } from "ajax-client";
+import React, { useState, useReducer } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,14 +18,25 @@ import { useEffect } from "react";
 
 const url = "http://portfolio.markoperica.com/sendMail.php";
 
+function reducer(state, action) {
+  switch (action.type) {
+    case "name":
+      return { warning: "name" };
+    case "email":
+      return { warning: "email" };
+    case "message":
+      return { warning: "message" };
+    default:
+      return { warning: "" };
+  }
+}
+
 function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  let [emailWarning, setEmailWarning] = useState(false);
-  let [nameWarning, setNameWarning] = useState(false);
-  let [messageWarning, setMessageWarning] = useState(false);
+  const [warning, dispatch] = useReducer(reducer, { warning: "" });
 
   function checkEmail() {
     var regex = /\S+@\S+\.\S+/;
@@ -36,27 +46,25 @@ function Contact() {
   // check all fields
   function checkFields() {
     if (!name) {
-      setNameWarning(true);
+      dispatch({ type: "name" });
       return;
     }
     setNameWarning(false);
     if (!checkEmail()) {
-      setEmailWarning(true);
+      dispatch({ type: "email" });
       return;
     }
     setEmailWarning(false);
     if (!message) {
-      setMessageWarning(true);
+      dispatch({ type: "message" });
       return;
     }
-    setMessageWarning(false);
+    dispatch({ type: "" });
     return true;
   }
 
   function sendMail(e) {
     e.preventDefault();
-    const client = new AjaxClient();
-    const data = { name: name, email: email, message: message };
     // if all fields are OK send mail
     if (checkFields()) {
       const xhr = new XMLHttpRequest();
@@ -205,21 +213,22 @@ function Contact() {
                   <a href="" className="main-btn">
                     <span className="btn-text">Submit</span>
                   </a>
-                  {nameWarning && (
+                  {warning.warning === "name" && (
                     <span style={{ color: "#000000", marginLeft: "10px" }}>
                       Please enter a name!
                     </span>
                   )}
-                  {emailWarning && (
+                  {warning.warning === "email" && (
                     <span style={{ color: "#000000", marginLeft: "10px" }}>
                       Entered e-mail is not valid!
                     </span>
                   )}
-                  {messageWarning && (
+                  {warning.warning === "message" && (
                     <span style={{ color: "#000000", marginLeft: "10px" }}>
                       Please enter a message!
                     </span>
                   )}
+                  {}
                 </div>
               </form>
             </div>
