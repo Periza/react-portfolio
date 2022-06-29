@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from "react";
+import Spinner from "./Spinner";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,6 +16,8 @@ import {
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 import { useEffect } from "react";
+
+// add a spinner
 
 const url = "http://portfolio.markoperica.com/sendMail.php";
 
@@ -36,7 +39,11 @@ function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const [spinner, setSpinner] = useState(false);
+
   const [warning, dispatch] = useReducer(reducer, { warning: "" });
+
+  const [spinnerColor, setSpinnerColor] = useState("#0000ff");
 
   function checkEmail() {
     var regex = /\S+@\S+\.\S+/;
@@ -49,12 +56,10 @@ function Contact() {
       dispatch({ type: "name" });
       return;
     }
-    setNameWarning(false);
     if (!checkEmail()) {
       dispatch({ type: "email" });
       return;
     }
-    setEmailWarning(false);
     if (!message) {
       dispatch({ type: "message" });
       return;
@@ -65,12 +70,36 @@ function Contact() {
 
   function sendMail(e) {
     e.preventDefault();
+
     // if all fields are OK send mail
     if (checkFields()) {
       const xhr = new XMLHttpRequest();
+      setSpinner(true);
 
       xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
+        if (xhr.readyState === 2 || xhr.readyState == 3) {
+          console.log("Loading...");
+        } else if (xhr.readyState === 4) {
+          switch (xhr.response) {
+            case "1":
+              setColor("#ff0000");
+              dispatch({ type: "name" });
+              console.log("Name error!");
+              break;
+            case "2":
+              setColor("#ff0000");
+              dispatch({ type: "email" });
+              console.log("E-mail error!");
+              break;
+            case "3":
+              setColor("#ff0000");
+              dispatch({ type: "message" });
+              console.log("Message error!");
+              break;
+            default:
+              setColor("#00ff00");
+              console.log(xhr.response);
+          }
         }
       };
 
@@ -78,6 +107,14 @@ function Contact() {
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send(`name=${name}&message=${message}&email=${email}`);
     }
+  }
+
+  function setColor(color) {
+    setSpinnerColor(color);
+    setTimeout(() => {
+      setSpinner(false);
+      setSpinnerColor("#0000ff");
+    }, 1000);
   }
 
   return (
@@ -228,7 +265,11 @@ function Contact() {
                       Please enter a message!
                     </span>
                   )}
-                  {}
+                  <Spinner
+                    loading={spinner}
+                    setSpinner={setSpinner}
+                    color={spinnerColor}
+                  ></Spinner>
                 </div>
               </form>
             </div>
