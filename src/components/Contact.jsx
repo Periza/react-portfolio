@@ -15,7 +15,6 @@ import {
   faLinkedin,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import { useEffect } from "react";
 
 // add a spinner
 
@@ -77,9 +76,10 @@ function Contact() {
       setSpinner(true);
 
       xhr.onreadystatechange = function () {
-        if (xhr.readyState === 2 || xhr.readyState == 3) {
+        if (xhr.readyState === 2 || xhr.readyState === 3) {
           console.log("Loading...");
         } else if (xhr.readyState === 4) {
+          if(xhr.status !== 200) {
           switch (xhr.response) {
             case "1":
               setColor("#ff0000");
@@ -101,6 +101,7 @@ function Contact() {
               console.log(xhr.response);
           }
         }
+        }
       };
 
       xhr.open("POST", url, true);
@@ -121,12 +122,12 @@ function Contact() {
     <React.Fragment>
       <section className="container contact" id="contact">
         <div className="contact-container">
-          <div className="main-title">
+          {/* <div className="main-title">
             <h2>
               Contact <span>Me</span>
               <span className="bg-text">Contact</span>
             </h2>
-          </div>
+          </div> */}
           <div className="contact-content-con">
             <div className="left-contact">
               <h4>Contact me here</h4>
