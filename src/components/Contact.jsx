@@ -82,17 +82,17 @@ function Contact() {
         } else if (xhr.readyState === 4) {
           switch (xhr.response) {
             case "1":
-              setColor("#ff0000");
+              setSpinner(false);
               dispatch({ type: "name" });
               console.log("Name error!");
               break;
             case "2":
-              setColor("#ff0000");
+              setSpinner(false);
               dispatch({ type: "email" });
               console.log("E-mail error!");
               break;
             case "3":
-              setColor("#ff0000");
+              setSpinner(false);
               dispatch({ type: "message" });
               console.log("Message error!");
               break;
