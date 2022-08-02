@@ -28,6 +28,8 @@ function reducer(state, action) {
       return { warning: "email" };
     case "message":
       return { warning: "message" };
+    case "sent":
+      return { warning: "no" };
     default:
       return { warning: "" };
   }
@@ -38,6 +40,7 @@ function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const [warnings, setWarnings] = useState(false);
   const [spinner, setSpinner] = useState(false);
 
   const [warning, dispatch] = useReducer(reducer, { warning: "" });
@@ -51,6 +54,7 @@ function Contact() {
 
   // check all fields
   function checkFields() {
+    setWarnings(true);
     if (!name) {
       dispatch({ type: "name" });
       return;
@@ -65,6 +69,7 @@ function Contact() {
     }
     dispatch({ type: "" });
     return true;
+    setWarnings(false);
   }
 
   function sendMail(e) {
@@ -74,33 +79,35 @@ function Contact() {
     if (checkFields()) {
       const xhr = new XMLHttpRequest();
       setSpinner(true);
+      setWarnings(false);
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 2 || xhr.readyState === 3) {
+          setSpinnerColor("#0000ff");
           console.log("Loading...");
         } else if (xhr.readyState === 4) {
-          if(xhr.status !== 200) {
-          switch (xhr.response) {
-            case "1":
-              setSpinner(false);
-              dispatch({ type: "name" });
-              console.log("Name error!");
-              break;
-            case "2":
-              setSpinner(false);
-              dispatch({ type: "email" });
-              console.log("E-mail error!");
-              break;
-            case "3":
-              setSpinner(false);
-              dispatch({ type: "message" });
-              console.log("Message error!");
-              break;
-            default:
-              setColor("#00ff00");
-              console.log(xhr.response);
+          if (xhr.status == 200) {
+            switch (xhr.response) {
+              case "1":
+                setColor("#ff0000");
+                dispatch({ type: "name" });
+                console.log("Name error!");
+                break;
+              case "2":
+                setColor("#ff0000");
+                dispatch({ type: "email" });
+                console.log("E-mail error!");
+                break;
+              case "3":
+                setColor("#ff0000");
+                dispatch({ type: "message" });
+                console.log("Message error!");
+                break;
+              default:
+                dispatch({ type: "sent" });
+                setColor("#00ff00");
+            }
           }
-        }
         }
       };
 
@@ -114,6 +121,10 @@ function Contact() {
     setSpinnerColor(color);
     setTimeout(() => {
       setSpinner(false);
+      setWarnings(true);
+      setTimeout(function () {
+        setWarnings(false);
+      }, 3000);
       setSpinnerColor("#0000ff");
     }, 1000);
   }
@@ -251,20 +262,29 @@ function Contact() {
                   <a href="" className="main-btn">
                     <span className="btn-text">Submit</span>
                   </a>
-                  {warning.warning === "name" && (
-                    <span style={{ color: "#000000", marginLeft: "10px" }}>
-                      Please enter a name!
-                    </span>
-                  )}
-                  {warning.warning === "email" && (
-                    <span style={{ color: "#000000", marginLeft: "10px" }}>
-                      Entered e-mail is not valid!
-                    </span>
-                  )}
-                  {warning.warning === "message" && (
-                    <span style={{ color: "#000000", marginLeft: "10px" }}>
-                      Please enter a message!
-                    </span>
+                  {warnings && (
+                    <div id="warrnings">
+                      {warning.warning === "name" && (
+                        <span style={{ color: "#000000", marginLeft: "10px" }}>
+                          Please enter a name!
+                        </span>
+                      )}
+                      {warning.warning === "email" && (
+                        <span style={{ color: "#000000", marginLeft: "10px" }}>
+                          Entered e-mail is not valid!
+                        </span>
+                      )}
+                      {warning.warning === "message" && (
+                        <span style={{ color: "#000000", marginLeft: "10px" }}>
+                          Please enter a message!
+                        </span>
+                      )}
+                      {warning.warning === "no" && (
+                        <span style={{ color: "#000000", marginLeft: "10px" }}>
+                          Message sent!
+                        </span>
+                      )}
+                    </div>
                   )}
                   <Spinner
                     loading={spinner}

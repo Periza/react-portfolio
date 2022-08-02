@@ -80,32 +80,6 @@ function About() {
             <div className="tl-icon">
               <i className="fas fa-briefcase"></i>
             </div>
-            <p className="tl-duration">2010 - present</p>
-            <h5>
-              Web Developer<span> - Vircrosoft</span>
-            </h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              quasi vero fugit.
-            </p>
-          </div>
-          <div className="timeline-item">
-            <div className="tl-icon">
-              <i className="fas fa-briefcase"></i>
-            </div>
-            <p className="tl-duration">2008 - 2011</p>
-            <h5>
-              Software Engineer<span> - Boogle, Inc.</span>
-            </h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              quasi vero fugit.
-            </p>
-          </div>
-          <div className="timeline-item">
-            <div className="tl-icon">
-              <i className="fas fa-briefcase"></i>
-            </div>
             <p className="tl-duration">2016 - 2017</p>
             <h5>
               C++ Programmer<span> - Slime Tech</span>
