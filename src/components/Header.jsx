@@ -15,7 +15,7 @@ function Header() {
           <div className="left-header">
             <div className="h-shape"></div>
             <div className="image">
-              <img src={require("../img/manul.jpg")} alt="manul" />
+              <img src={require("../img/manul.jpeg")} alt="manul" />
             </div>
           </div>
           <div className="right-header">
