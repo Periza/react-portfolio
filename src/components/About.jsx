@@ -80,53 +80,19 @@ function About() {
             <div className="tl-icon">
               <i className="fas fa-briefcase"></i>
             </div>
-            <p className="tl-duration">2016 - 2017</p>
+            <p className="tl-duration">2014 - 2020</p>
             <h5>
-              C++ Programmer<span> - Slime Tech</span>
+              bacc. ing. comp.<span> - FERIT</span>
             </h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              quasi vero fugit.
-            </p>
           </div>
           <div className="timeline-item">
             <div className="tl-icon">
               <i className="fas fa-briefcase"></i>
             </div>
-            <p className="tl-duration">2009 - 2013</p>
+            <p className="tl-duration">2015 - 2020</p>
             <h5>
-              Business Degree<span> - Sussex University</span>
+              Pollster<span> - IPSOS</span>
             </h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              quasi vero fugit.
-            </p>
-          </div>
-          <div className="timeline-item">
-            <div className="tl-icon">
-              <i className="fas fa-briefcase"></i>
-            </div>
-            <p className="tl-duration">2013 - 2016</p>
-            <h5>
-              Computer Science Degree<span> - Brookes University</span>
-            </h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              quasi vero fugit.
-            </p>
-          </div>
-          <div className="timeline-item">
-            <div className="tl-icon">
-              <i className="fas fa-briefcase"></i>
-            </div>
-            <p className="tl-duration">2017 - present</p>
-            <h5>
-              3d Animation<span> - Brighton University</span>
-            </h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              quasi vero fugit.
-            </p>
           </div>
         </div>
       </section>
